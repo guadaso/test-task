@@ -1,24 +1,30 @@
-echo # Java
-target
-bin
-.jar
-.war
-.ear
+# Java
+bin/
+*.war
+*.ear
+
+# Maven
+target/
+!**/src/main/**/target/
 
 # Docker
 docker-compose.override.yml
 
 # IDE
-.idea
-.iml
+.idea/
+*.iml
 .classpath
 .project
-.settings
-
-# Logs
-logs
-.log
+.settings/
 
 # DB
-.db
-.sqlite  .gitignore
+*.db
+*.sqlite
+
+# OS
+.DS_Store
+Thumbs.db
+
+# JAR files (исключаем собранные jar)
+*.jar
+!**/src/main/**/*.jar
