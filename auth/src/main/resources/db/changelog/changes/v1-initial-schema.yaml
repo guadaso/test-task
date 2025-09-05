@@ -1,0 +1,120 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: your_name
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_name
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(100)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValue: "NOW()"
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValue: "NOW()"
+
+        - createIndex:
+            indexName: idx_users_username
+            tableName: users
+            columns:
+              - column:
+                  name: user_name
+
+        - createIndex:
+            indexName: idx_users_email
+            tableName: users
+            columns:
+              - column:
+                  name: email
+
+        - createIndex:
+            indexName: idx_users_role
+            tableName: users
+            columns:
+              - column:
+                  name: role
+
+  - changeSet:
+      id: 2
+      author: your_name
+      runOnChange: false
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: "SELECT COUNT(*) FROM users WHERE user_name IN ('a1', 'a2', 'u2')"
+      changes:
+        - sql:
+            sql: >
+              INSERT INTO users (user_name, password, email, first_name, last_name, role, created_at, updated_at)
+              VALUES 
+              (
+                'a1', 
+                '$2a$10$NWZYEq3HwoPF3r5.Uv1IYe2FH1v7BG.6QVIGYDoRjI2GfWnpCaUJu', 
+                'razdymakhosaveliy@gmail.com', 
+                'Gena', 
+                'Volkov', 
+                'ADMIN', 
+                NOW(), 
+                NOW()
+              ),
+              (
+                'a2', 
+                '$2a$10$IYHBymvrkL9oAaEQ4NWqx.8rj91MdhbbHtgrB059IsuZBUJVcw71i', 
+                'saveliyrazdymakho@gmail.com', 
+                'Oleg', 
+                'Semin', 
+                'ADMIN', 
+                NOW(), 
+                NOW()
+              ),
+              (
+                'u2', 
+                '$2a$10$A8olTJykvESpr7XAd91jGesWvJ2lrF/wDCpDew5VmApMG.lztkol6', 
+                'asdasqwe@gmail.com', 
+                'Genadwa', 
+                'Volkovsda', 
+                'USER', 
+                NOW(), 
+                NOW()
+              )
