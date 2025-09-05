@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: notification_service
+      changes:
+        - createTable:
+            tableName: notifications
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: event_type
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: username
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(100)
+              - column:
+                  name: performed_by
+                  type: VARCHAR(100)
+              - column:
+                  name: message
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sent_at
+                  type: TIMESTAMP
+              - column:
+                  name: recipient_count
+                  type: INTEGER
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - createIndex:
+            indexName: idx_notifications_event_type
+            tableName: notifications
+            columns:
+              - column:
+                  name: event_type
+
+        - createIndex:
+            indexName: idx_notifications_status
+            tableName: notifications
+            columns:
+              - column:
+                  name: status
+
+        - createIndex:
+            indexName: idx_notifications_created_at
+            tableName: notifications
+            columns:
+              - column:
+                  name: created_at

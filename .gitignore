@@ -1,0 +1,24 @@
+echo # Java
+target
+bin
+.jar
+.war
+.ear
+
+# Docker
+docker-compose.override.yml
+
+# IDE
+.idea
+.iml
+.classpath
+.project
+.settings
+
+# Logs
+logs
+.log
+
+# DB
+.db
+.sqlite  .gitignore
